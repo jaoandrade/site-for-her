@@ -1,0 +1,267 @@
+.hub {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative NubCats spread around - à frente dos botões */
+.decorative-cat {
+  position: absolute;
+  z-index: 25; /* À frente dos botões (z-index 10) e do conteúdo (z-index 20) */
+  pointer-events: none;
+  animation: float 4s ease-in-out infinite;
+}
+
+.decorative-cat-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(255, 179, 217, 0.5));
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.decorative-cat:hover .decorative-cat-image {
+  opacity: 1;
+}
+
+.decorative-cat-emoji {
+  font-size: 60px;
+  filter: drop-shadow(0 4px 8px rgba(255, 179, 217, 0.5));
+  opacity: 0.7;
+}
+
+/* Mobile adaptações - gatos aparecem mas menores e bem posicionados */
+@media (max-width: 768px) {
+  .decorative-cat-image {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .decorative-cat-emoji {
+    font-size: 40px;
+  }
+  
+  .decorative-cat {
+    opacity: 0.6; /* Mais transparente em mobile para não competir */
+    z-index: 25; /* Mantém à frente dos botões mesmo em mobile */
+  }
+}
+
+/* iPhone 13 e mobile pequeno - gatos ainda menores mas visíveis */
+@media (max-width: 390px) {
+  .decorative-cat-image {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .decorative-cat-emoji {
+    font-size: 35px;
+  }
+  
+  .decorative-cat {
+    opacity: 0.5; /* Ainda mais transparente em telas pequenas */
+  }
+  
+  /* Manter gatos à frente dos botões */
+  .decorative-cat {
+    z-index: 25;
+  }
+}
+
+.hub-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 20; /* Acima dos gatos decorativos mas permite que gatos fiquem visíveis */
+}
+
+.hub-title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  background: linear-gradient(135deg, #ff99cc, #cc99ff, #99ccff, #ff99cc);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.hub-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.hub-button {
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: visible; /* Permite que gatos fiquem visíveis sobre os botões */
+  z-index: 10;
+}
+
+.hub-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 179, 217, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.hub-button:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.hub-button:hover:not(:disabled) {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: var(--shadow-strong);
+}
+
+.hub-button:active:not(:disabled) {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.hub-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.album-button {
+  border-left: 5px solid var(--color-pink);
+}
+
+.wars-button {
+  border-left: 5px solid var(--color-purple);
+}
+
+.notes-button {
+  border-left: 5px solid var(--color-pink);
+}
+
+.messages-button {
+  border-left: 5px solid var(--color-blue);
+}
+
+.button-emoji {
+  font-size: 50px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.button-text {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.button-subtitle {
+  font-size: 16px;
+  color: var(--color-text-light);
+  font-weight: 400;
+}
+
+.hub-footer {
+  margin-top: 40px;
+}
+
+.footer-text {
+  font-size: 18px;
+  color: var(--color-text-light);
+  opacity: 0.8;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .hub {
+    padding: 20px 15px;
+  }
+
+  .hub-title {
+    font-size: 28px;
+    margin-bottom: 40px;
+    white-space: nowrap;
+    padding: 0 10px;
+  }
+}
+
+/* iPhone 13 específico (390px width) */
+@media (max-width: 390px) {
+  .hub {
+    padding: 20px 12px;
+  }
+
+  .hub-title {
+    font-size: 24px;
+    margin-bottom: 35px;
+    white-space: nowrap;
+    padding: 0 5px;
+    letter-spacing: -0.5px;
+  }
+
+  .hub-buttons {
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .hub-button {
+    padding: 25px 20px;
+    border-radius: 20px;
+  }
+
+  .button-emoji {
+    font-size: 40px;
+  }
+
+  .button-text {
+    font-size: 24px;
+  }
+
+  .button-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hub-title {
+    font-size: 22px;
+    white-space: nowrap;
+    padding: 0 5px;
+    letter-spacing: -0.5px;
+  }
+
+  .hub-button {
+    padding: 20px 15px;
+  }
+
+  .button-emoji {
+    font-size: 35px;
+  }
+
+  .button-text {
+    font-size: 20px;
+  }
+}

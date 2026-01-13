@@ -1,0 +1,18 @@
+.app {
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+/* Mobile-first responsive breakpoints */
+@media (min-width: 768px) {
+  .app {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app {
+    max-width: 100%;
+  }
+}

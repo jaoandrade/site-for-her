@@ -1,0 +1,485 @@
+.love-request {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, 
+    rgba(255, 209, 230, 0.95) 0%, 
+    rgba(230, 204, 255, 0.95) 40%, 
+    rgba(204, 230, 255, 0.95) 80%, 
+    rgba(255, 209, 230, 0.95) 100%
+  );
+}
+
+.love-request::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 153, 204, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(153, 204, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(204, 153, 255, 0.3) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.love-request-content {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.65);  /* Mais transparente para ver emojis */
+  backdrop-filter: blur(15px);  /* Blur reduzido */
+  border-radius: 50px;
+  box-shadow: 
+    0 25px 70px rgba(255, 179, 217, 0.35),
+    0 10px 30px rgba(200, 180, 255, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255, 230, 245, 0.6);  /* Borda um pouco mais visível */
+}
+
+.nub-cat-container {
+  margin-bottom: 30px;
+}
+
+.nub-cat-image {
+  width: 312px;
+  height: 312px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(255, 179, 217, 0.5));
+  animation: float 3s ease-in-out infinite;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.nub-cat-image:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.nub-cat-emoji {
+  font-size: 260px;
+  display: inline-block;
+  filter: drop-shadow(0 8px 16px rgba(255, 179, 217, 0.5));
+  animation: float 3s ease-in-out infinite;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.nub-cat-emoji:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Sad Cat Container */
+.sad-cat-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+  animation: fadeIn 0.5s ease-out, pulse 2s ease-in-out infinite;
+}
+
+.sad-cat-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+}
+
+.sad-cat-emoji {
+  font-size: 100px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.sad-cat-message {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 15px;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@media (max-width: 480px) {
+  .sad-cat-container {
+    padding: 30px 20px;
+  }
+
+  .sad-cat-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .sad-cat-message {
+    font-size: 20px;
+  }
+}
+
+.love-text {
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #ff99cc, #cc99ff, #99ccff, #ff99cc);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite, pulse 2.5s ease-in-out infinite;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 5;  /* Garantir que fica acima dos emojis */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+
+.question-container {
+  margin-bottom: 50px;
+  padding: 25px;
+  background: linear-gradient(135deg, 
+    rgba(255, 209, 230, 0.9) 0%, 
+    rgba(230, 204, 255, 0.9) 100%
+  );
+  border-radius: 30px;
+  backdrop-filter: blur(15px);
+  box-shadow: 
+    0 8px 20px rgba(255, 153, 204, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 153, 204, 0.5);
+}
+
+.question-text {
+  font-size: 34px;
+  font-weight: 600;
+  user-select: none;
+  -webkit-user-select: none;
+  color: var(--color-text);
+  opacity: 0.95;
+  text-shadow: 0 2px 8px rgba(255, 179, 217, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.buttons-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 90px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.btn-yes,
+.btn-no {
+  padding: 20px 45px;
+  font-size: 26px;
+  font-weight: 700;
+  border-radius: 50px;
+  box-shadow: 0 8px 25px rgba(255, 179, 217, 0.4),
+              0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  z-index: 1;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 1px;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, var(--color-pink), var(--color-pink-dark));
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.btn-yes:hover {
+  transform: scale(1.12) translateY(-3px);
+  box-shadow: 0 12px 35px rgba(255, 179, 217, 0.6),
+              0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-yes:active {
+  transform: scale(1.05) translateY(-1px);
+}
+
+.btn-no {
+  background: linear-gradient(135deg, #ffcccc, #ff9999, #ffaaaa);
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* Quando está em posição absoluta, garantir que fica dentro dos limites */
+.btn-no[style*="position: absolute"] {
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+}
+
+.btn-no:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(255, 153, 153, 0.5);
+}
+
+.btn-no:active {
+  transform: scale(0.92);
+}
+
+/* Emoji Rain - otimizado para mobile mas mais visível (à frente de tudo) */
+.emoji-rain {
+  position: fixed;
+  top: -100px;
+  pointer-events: none;
+  animation: emojiRain linear infinite;
+  z-index: 99999; /* Máximo z-index para ficar à frente de tudo */
+  user-select: none;
+  max-width: 40px;
+  max-height: 40px;
+  /* Efeitos otimizados mas mais visíveis */
+  filter: drop-shadow(0 3px 6px rgba(255, 153, 204, 0.8)) 
+          drop-shadow(0 0 10px rgba(255, 179, 217, 0.6));
+  text-shadow: 0 0 12px rgba(255, 153, 204, 0.7),
+               0 0 20px rgba(255, 179, 217, 0.5);
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Aceleração de hardware */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Disappear Emojis Animation */
+.disappear-emoji {
+  position: absolute;
+  font-size: 40px;
+  pointer-events: none;
+  z-index: 100;
+  animation: disappearEmoji 2s ease-out forwards;
+  user-select: none;
+}
+
+@keyframes disappearEmoji {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(var(--final-x) - var(--initial-x, 0px)),
+      calc(var(--final-y) - var(--initial-y, 0px))
+    ) scale(0.3) rotate(360deg);
+  }
+}
+
+.disappear-emoji {
+  --initial-x: 0px;
+  --initial-y: 0px;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .love-request {
+    padding: 15px;
+  }
+
+  .love-request-content {
+    padding: 25px 20px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.55);  /* Mais transparente no mobile */
+    backdrop-filter: blur(12px);
+  }
+
+  /* Emojis otimizados para mobile (efeitos reduzidos) */
+  .emoji-rain {
+    filter: drop-shadow(0 2px 3px rgba(255, 153, 204, 0.6));
+    text-shadow: 0 0 6px rgba(255, 153, 204, 0.5);
+  }
+
+  .nub-cat {
+    font-size: 70px;
+  }
+
+  .love-text {
+    font-size: 38px;
+    margin-bottom: 25px;
+  }
+
+  .question-container {
+    padding: 15px;
+    margin-bottom: 40px;
+  }
+
+  .question-text {
+    font-size: 26px;
+  }
+
+  .buttons-container {
+    min-height: 110px;
+    margin-top: 30px;
+    gap: 15px;
+  }
+
+  .btn-yes,
+  .btn-no {
+    padding: 18px 35px;
+    font-size: 22px;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10%, 30% {
+    transform: scale(1.1);
+  }
+  20%, 40% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 360px) {
+  .love-text {
+    font-size: 34px;
+  }
+
+  .question-text {
+    font-size: 22px;
+  }
+
+  .btn-yes,
+  .btn-no {
+    padding: 16px 30px;
+    font-size: 20px;
+  }
+}
+
+/* iPhone 12 Pro e iPhone 13 specific optimizations (390px width) */
+@media (max-width: 390px) and (max-height: 844px) {
+  .love-request {
+    padding: 20px 15px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .love-request-content {
+    padding: 35px 25px;
+    border-radius: 35px;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.5);  /* Ainda mais transparente no iPhone 13 */
+    backdrop-filter: blur(10px);
+  }
+
+  /* Emojis otimizados para iPhone (efeitos reduzidos para melhor performance) */
+  .emoji-rain {
+    filter: drop-shadow(0 2px 3px rgba(255, 153, 204, 0.6));
+    text-shadow: 0 0 6px rgba(255, 153, 204, 0.5);
+  }
+
+  .nub-cat-container {
+    margin-bottom: 25px;
+  }
+
+  .nub-cat-image {
+    width: 240px;
+    height: 240px;
+  }
+
+  .nub-cat-emoji {
+    font-size: 200px;
+  }
+
+  .love-text {
+    font-size: 38px;
+    margin-bottom: 25px;
+  }
+
+  .question-container {
+    padding: 20px 18px;
+    margin-bottom: 35px;
+    border-radius: 25px;
+  }
+
+  .question-text {
+    font-size: 26px;
+  }
+
+  .buttons-container {
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 35px;
+    min-height: auto;
+    flex-wrap: wrap;
+  }
+
+  .btn-yes,
+  .btn-no {
+    width: auto;
+    max-width: 140px;
+    padding: 16px 28px;
+    font-size: 20px;
+  }
+}
+
+/* Mobile pequeno adicional */
+@media (max-width: 360px) {
+  .love-request {
+    padding: 15px 12px;
+    padding-top: 35px;
+  }
+
+  .love-request-content {
+    padding: 30px 20px;
+  }
+
+  .nub-cat-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .love-text {
+    font-size: 34px;
+  }
+
+  .question-text {
+    font-size: 24px;
+  }
+
+  .btn-yes,
+  .btn-no {
+    padding: 14px 24px;
+    font-size: 18px;
+    max-width: 120px;
+  }
+}
