@@ -28,7 +28,6 @@ const MusicPlayer = ({ canPlay }) => {
     { name: "Compass", artist: "The Neighbourhood", url: "/resources/sounds/musica/The Neighbourhood - Compass.mp3" },
     { name: "Reflections", artist: "The Neighbourhood", url: "/resources/sounds/musica/The Neighbourhood - Reflections.mp3" },
     { name: "Every Breath You Take", artist: "The Police", url: "/resources/sounds/musica/The Police - Every Breath You Take (Lyrics).mp3" },
-    { name: "Tum Hi Ho", artist: "Arijit Singh", url: "/resources/sounds/musica/Tum Hi Ho.mp3" },
     { name: "Riptide", artist: "Vance Joy", url: "/resources/sounds/musica/Vance Joy - Riptide.mp3" },
     { name: "Blue", artist: "Yung Kai", url: "/resources/sounds/musica/Yung Kai - Blue.mp3" }
   ]
