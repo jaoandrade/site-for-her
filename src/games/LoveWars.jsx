@@ -32,19 +32,15 @@ const LoveWars = ({ onBack }) => {
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
   const useImageProjectiles = isIOS || isSafari
 
-  // Imagens da pasta Love para usar como projéteis no iOS/Safari
-  const loveProjectileImages = [
-    '/resources/images/nubnubcat/Love/ustogetherhappy.png',
-    '/resources/images/nubnubcat/Love/ushugging.png',
-    '/resources/images/nubnubcat/Love/shehuggingme.png',
-    '/resources/images/nubnubcat/Love/sheRefilsMeWithLove.png',
-    '/resources/images/nubnubcat/Love/Ilovehereyes.png',
-    '/resources/images/nubnubcat/Love/HerMakeMyDihBlush.png',
-    '/resources/images/nubnubcat/Love/MeTeasingHer.png',
-    '/resources/images/nubnubcat/Love/samefreakquency.png',
-    '/resources/images/nubnubcat/Love/sticker_27.png',
-    '/resources/images/nubnubcat/Love/sticker_28.png',
-    '/resources/images/nubnubcat/Love/fuckingmissyou.png'
+  // Imagens de projéteis para iPhone/iOS Safari
+  const iphoneProjectileImages = [
+    '/resources/images/projeteisiphone/projetil1.png',
+    '/resources/images/projeteisiphone/projetil2.png',
+    '/resources/images/projeteisiphone/projetil3.png',
+    '/resources/images/projeteisiphone/projetil4.png',
+    '/resources/images/projeteisiphone/projetil5.png',
+    '/resources/images/projeteisiphone/projetil6.png',
+    '/resources/images/projeteisiphone/projetil7.png'
   ]
 
   // Tipos de projéteis que o inimigo pode atirar
@@ -129,7 +125,7 @@ const LoveWars = ({ onBack }) => {
   const imageCacheRef = useRef({
     player: [],
     enemy: [],
-    projectiles: [] // Cache de imagens de projéteis para iOS/Safari
+    projectiles: [] // Cache de imagens de projéteis para iPhone/iOS
   })
 
   // Carregar imagens
@@ -157,11 +153,11 @@ const LoveWars = ({ onBack }) => {
         imageCacheRef.current.enemy[i] = img
       }
 
-      // Carregar imagens de projéteis para iOS/Safari (se necessário)
+      // Carregar imagens de projéteis para iPhone/iOS Safari (se necessário)
       if (useImageProjectiles) {
-        for (let i = 0; i < loveProjectileImages.length; i++) {
+        for (let i = 0; i < iphoneProjectileImages.length; i++) {
           const img = new Image()
-          img.src = loveProjectileImages[i]
+          img.src = iphoneProjectileImages[i]
           await new Promise((resolve) => {
             img.onload = resolve
             img.onerror = resolve
@@ -472,11 +468,11 @@ const LoveWars = ({ onBack }) => {
       const speedMultiplier = isFastProjectile ? 1.5 + (state.gameTime / 60) * 0.5 : 1.0 // Fast projéteis 1.5x mais rápido, aumenta com tempo
       const projectileSpeed = baseSpeed * speedMultiplier
       
-      // Para iOS/Safari, usar índice de imagem ao invés de emoji
+      // Para iPhone/iOS: selecionar imagem aleatória dos projéteis
       const projectileImageIndex = useImageProjectiles 
-        ? Math.floor(Math.random() * loveProjectileImages.length)
+        ? Math.floor(Math.random() * iphoneProjectileImages.length)
         : null
-
+      
       state.projectiles.push({
         x: Math.max(0, Math.min(projectileX, canvasWidth - 30)),
         y: state.enemyCat.y + state.enemyCat.height,
@@ -486,7 +482,7 @@ const LoveWars = ({ onBack }) => {
         type: projectileType.emoji,
         name: projectileType.name,
         isFast: isFastProjectile,
-        imageIndex: projectileImageIndex // Índice da imagem para iOS/Safari
+        imageIndex: projectileImageIndex // Índice da imagem para iPhone/iOS
       })
       state.enemyCat.lastHeartShot = now
     }
@@ -560,30 +556,45 @@ const LoveWars = ({ onBack }) => {
     ctx.globalAlpha = 0.7 // Reduzir opacidade para diluir borrão
     
     state.projectiles.forEach(projectile => {
-      // iOS/Safari: usar imagens ao invés de emojis
+      const centerX = projectile.x + projectile.width / 2
+      const centerY = projectile.y + projectile.height / 2
+      
+      // iPhone/iOS Safari: usar imagens de projéteis
       if (useImageProjectiles && projectile.imageIndex !== null && projectile.imageIndex !== undefined) {
         const projectileImg = imageCacheRef.current.projectiles[projectile.imageIndex]
-        if (projectileImg && projectileImg.complete && projectileImg.width > 0) {
+        
+        // Verificar se imagem carregou corretamente
+        if (projectileImg && projectileImg.complete && projectileImg.width > 0 && projectileImg.height > 0) {
           // Garantir que a imagem está dentro dos bounds do canvas
           const x = Math.max(0, Math.min(projectile.x, width - projectile.width))
           const y = Math.max(0, Math.min(projectile.y, height - projectile.height))
-          ctx.drawImage(projectileImg, x, y, projectile.width, projectile.height)
+          
+          // Desenhar imagem do projétil redimensionada para 30x30px
+          try {
+            ctx.drawImage(projectileImg, x, y, projectile.width, projectile.height)
+          } catch (e) {
+            // Se drawImage falhar, usar fallback (círculo rosa)
+            console.warn('Erro ao desenhar imagem do projétil:', e)
+            ctx.fillStyle = '#ff69b4'
+            ctx.beginPath()
+            ctx.arc(centerX, centerY, projectile.width / 2, 0, Math.PI * 2)
+            ctx.fill()
+          }
         } else {
-          // Fallback: desenhar círculo colorido se imagem não carregou
+          // Fallback: desenhar círculo rosa se imagem não carregou
           ctx.fillStyle = '#ff69b4'
           ctx.beginPath()
-          ctx.arc(projectile.x + projectile.width / 2, projectile.y + projectile.height / 2, projectile.width / 2, 0, Math.PI * 2)
+          ctx.arc(centerX, centerY, projectile.width / 2, 0, Math.PI * 2)
           ctx.fill()
         }
       } else {
-        // Outros navegadores: usar emojis
-        // CORREÇÃO iOS: Definir textAlign e textBaseline antes de desenhar emojis
+        // Android/outros navegadores: usar emojis
         ctx.font = '30px Arial, sans-serif'
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
         // Garantir que o emoji está dentro dos bounds do canvas
-        const x = Math.max(15, Math.min(projectile.x + projectile.width / 2, width - 15))
-        const y = Math.max(15, Math.min(projectile.y + projectile.height / 2, height - 15))
+        const x = Math.max(15, Math.min(centerX, width - 15))
+        const y = Math.max(15, Math.min(centerY, height - 15))
         ctx.fillText(projectile.type, x, y)
       }
     })
