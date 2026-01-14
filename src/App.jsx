@@ -7,21 +7,20 @@ import './App.css'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('love-request')
-  const [userInteracted, setUserInteracted] = useState(true) // Start as true to allow auto-play
+  const [userInteracted, setUserInteracted] = useState(false) // Music starts only after first interaction
 
-  // Start music immediately when site opens - no interaction needed
+  // Enable music only after the first user interaction (click/touch)
   useEffect(() => {
-    // Set to true immediately to allow music to start
-    setUserInteracted(true)
-    
-    // Also trigger a user interaction event to help with browser autoplay policies
     const handleFirstInteraction = () => {
       setUserInteracted(true)
+      // Remove listeners after first interaction
+      document.removeEventListener('click', handleFirstInteraction)
+      document.removeEventListener('touchstart', handleFirstInteraction)
     }
     
-    // Listen for any user interaction to ensure autoplay works
-    document.addEventListener('click', handleFirstInteraction, { once: true })
-    document.addEventListener('touchstart', handleFirstInteraction, { once: true })
+    // Listen for any user interaction to start music
+    document.addEventListener('click', handleFirstInteraction)
+    document.addEventListener('touchstart', handleFirstInteraction)
     
     return () => {
       document.removeEventListener('click', handleFirstInteraction)

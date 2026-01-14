@@ -68,7 +68,7 @@ const Album = ({ onBack }) => {
       id: idCounter++,
       url: '/resources/videos/MeWithHer.mp4',
       type: 'video',
-      comment: 'A special moment together 🎬💕'
+      comment: 'You are so cute! 🥹💕'
     })
     media.push({
       id: idCounter++,
@@ -127,7 +127,7 @@ const Album = ({ onBack }) => {
     const caminhoHvar = [
       { name: 'Caminho Hvar.jpeg', comment: 'The journey together 🛤️' },
       { name: 'Caminho Hvar (2).jpeg', comment: 'Beautiful path, beautiful company 💕' },
-      { name: 'caminho Hvar (3).jpeg', comment: 'Every step with you is special ✨' },
+      { name: 'caminho Hvar (3).jpeg', comment: 'Very Silly 🤭✨' },
       { name: 'Caminho Hvar (4).jpeg', comment: 'Walking hand in hand 💖' },
       { name: 'Caminho Hvar (5).jpeg', comment: 'The road to happiness 🛣️' }
     ]
@@ -185,9 +185,9 @@ const Album = ({ onBack }) => {
 
     // 6. SillyFaces (3 images) - after Her, before Minions
     const sillyFaces = [
-      { name: 'SillyFaces (2).jpeg', comment: 'Making each other laugh 😆' },
+      { name: 'SillyFaces (2).jpeg', comment: 'We are the perfect match 😆' },
       { name: 'SillyFaces (3).jpeg', comment: 'Fun and goofy times 🥳' },
-      { name: 'SillyFaces (4).jpeg', comment: 'Laughter is the best medicine 😄' }
+      { name: 'SillyFaces (4).jpeg', comment: 'Our Silliest Us 😄' }
     ]
     sillyFaces.forEach(img => {
       media.push({
@@ -201,7 +201,7 @@ const Album = ({ onBack }) => {
     // 7. Minions (2 images)
     const minions = [
       { name: 'Minions.jpeg', comment: 'Minion adventures 🟡' },
-      { name: 'Minions (2).jpeg', comment: 'Cute minion moments 💛' }
+      { name: 'Minions (2).jpeg', comment: 'Tonight We Steal The Moon 💛🌙' }
     ]
     minions.forEach(img => {
       media.push({
