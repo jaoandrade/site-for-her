@@ -515,11 +515,18 @@ const LoveWars = ({ onBack }) => {
     }
 
     // Desenhar projéteis caindo (com opacidade reduzida para diluir borrão)
-    ctx.font = '30px Arial'
+    // CORREÇÃO iOS: Definir textAlign e textBaseline antes de desenhar emojis
+    // iOS Safari requer essas propriedades para renderizar emojis corretamente no canvas
     ctx.save()
+    ctx.font = '30px Arial, sans-serif' // Garantir fallback de fonte
+    ctx.textAlign = 'center' // Centralizar emoji horizontalmente
+    ctx.textBaseline = 'middle' // Centralizar emoji verticalmente
     ctx.globalAlpha = 0.7 // Reduzir opacidade para diluir borrão
     state.projectiles.forEach(projectile => {
-      ctx.fillText(projectile.type, projectile.x + projectile.width / 2, projectile.y + projectile.height / 2)
+      // Garantir que o emoji está dentro dos bounds do canvas
+      const x = Math.max(15, Math.min(projectile.x + projectile.width / 2, width - 15))
+      const y = Math.max(15, Math.min(projectile.y + projectile.height / 2, height - 15))
+      ctx.fillText(projectile.type, x, y)
     })
     ctx.restore()
 
