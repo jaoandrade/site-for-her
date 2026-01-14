@@ -7,26 +7,8 @@ import './App.css'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('love-request')
-  const [userInteracted, setUserInteracted] = useState(false) // Music starts only after first interaction
-
-  // Enable music only after the first user interaction (click/touch)
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      setUserInteracted(true)
-      // Remove listeners after first interaction
-      document.removeEventListener('click', handleFirstInteraction)
-      document.removeEventListener('touchstart', handleFirstInteraction)
-    }
-    
-    // Listen for any user interaction to start music
-    document.addEventListener('click', handleFirstInteraction)
-    document.addEventListener('touchstart', handleFirstInteraction)
-    
-    return () => {
-      document.removeEventListener('click', handleFirstInteraction)
-      document.removeEventListener('touchstart', handleFirstInteraction)
-    }
-  }, [])
+  // MusicPlayer cuida internamente de tentar autoplay e,
+  // se o navegador bloquear, tenta novamente na primeira interação.
 
   // Stop music when page is closed/unloaded
   useEffect(() => {
@@ -54,7 +36,7 @@ function App() {
       {currentPage === 'love-request' && <LoveRequest onAccept={handleAccept} />}
       {currentPage === 'happy' && <HappyScreen onContinue={handleContinue} />}
       {currentPage === 'hub' && <Hub />}
-      <MusicPlayer canPlay={userInteracted} />
+      <MusicPlayer canPlay={true} />
     </div>
   )
 }

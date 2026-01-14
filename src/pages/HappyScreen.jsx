@@ -25,7 +25,7 @@ I'm hopelessly in love with you 💕
 This is our little corner of the internet, filled with love, memories, 
 and fun times together, like 37 ☝️☝️
 
-Thank you from the bottom of my heart... for being such a special and wonderful person in my life, my witch and little creature.. 
+Thank you from the bottom of my heart... for being such a special and wonderful person in my life, 
 my pretty wifey...🥹💗 
 
 I love you more than words can express! ❤️✨`

@@ -33,6 +33,22 @@ const MusicPlayer = ({ canPlay }) => {
     { name: "Blue", artist: "Yung Kai", url: "/resources/sounds/musica/Yung Kai - Blue.mp3" }
   ]
 
+  // Imagens fofas da pasta Love para usar como capa da música
+  // (aparecem na notificação/lockscreen do telemóvel quando a música toca)
+  const loveArtworkImages = [
+    '/resources/images/nubnubcat/Love/ustogetherhappy.png',
+    '/resources/images/nubnubcat/Love/ushugging.png',
+    '/resources/images/nubnubcat/Love/shehuggingme.png',
+    '/resources/images/nubnubcat/Love/sheRefilsMeWithLove.png',
+    '/resources/images/nubnubcat/Love/Ilovehereyes.png',
+    '/resources/images/nubnubcat/Love/HerMakeMyDihBlush.png',
+    '/resources/images/nubnubcat/Love/MeTeasingHer.png',
+    '/resources/images/nubnubcat/Love/samefreakquency.png',
+    '/resources/images/nubnubcat/Love/sticker_27.png',
+    '/resources/images/nubnubcat/Love/sticker_28.png',
+    '/resources/images/nubnubcat/Love/fuckingmissyou.png',
+  ]
+
   // Estados para controle de não repetição
   const [currentSong, setCurrentSong] = useState(null)
   const [playedSongs, setPlayedSongs] = useState([])
@@ -56,6 +72,29 @@ const MusicPlayer = ({ canPlay }) => {
     if (audioRef.current && currentSong) {
       audioRef.current.src = currentSong.url
       audioRef.current.load()
+
+      // Atualizar ícone/capa da notificação do telemóvel (Media Session API)
+      try {
+        if ('mediaSession' in navigator && loveArtworkImages.length > 0) {
+          const randomArtwork =
+            loveArtworkImages[Math.floor(Math.random() * loveArtworkImages.length)]
+
+          navigator.mediaSession.metadata = new window.MediaMetadata({
+            title: currentSong.name || 'For You 💕',
+            artist: currentSong.artist || 'For my sweetie',
+            album: 'For You',
+            artwork: [
+              {
+                src: randomArtwork,
+                sizes: '512x512',
+                type: 'image/png',
+              },
+            ],
+          })
+        }
+      } catch (err) {
+        console.log('Erro ao atualizar Media Session artwork:', err)
+      }
       
       // Tocar automaticamente quando a música muda (se canPlay for true)
       if (canPlay) {
