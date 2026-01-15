@@ -182,8 +182,11 @@ const LoveWars = ({ onBack }) => {
       // Guardar tamanho atual para evitar redimensionamentos durante o jogo
       canvasSizeRef.current = { width: containerWidth, height: containerHeight }
       
-      // Definir dimensões do canvas com alta resolução para melhor qualidade
-      const dpr = window.devicePixelRatio || 1
+      // Definir dimensões do canvas - limitar DPR para performance em dispositivos móveis
+      const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+      const maxDpr = isIOSDevice ? 1.5 : 2 // Limitar DPR no iOS para melhor performance
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr)
       canvas.width = containerWidth * dpr
       canvas.height = containerHeight * dpr
       
@@ -661,7 +664,10 @@ const LoveWars = ({ onBack }) => {
       const containerWidth = rect.width
       const containerHeight = rect.height
       
-      const dpr = window.devicePixelRatio || 1
+      const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+      const maxDpr = isIOSDevice ? 1.5 : 2
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr)
       canvas.width = containerWidth * dpr
       canvas.height = containerHeight * dpr
       
